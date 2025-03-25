@@ -4,7 +4,7 @@
  * Material definitions *
  ************************/
 
-% --- Fuel material (4.0 wt-% enriched uranium), density 19.816 g/cm3
+% --- Fuel material (Pure plutonium-239), density 19.816 g/cm3
 
 mat fuel     -19.816
 94239.03c    -1.0 
