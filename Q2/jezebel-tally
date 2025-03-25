@@ -1,0 +1,87 @@
+% --- NE 544 HW 5 Q1 pt 1 - Pure Pu Jezebel
+
+/************************
+ * Material definitions *
+ ************************/
+
+% --- Fuel material (plutonium-gallium alloy), density 15.61 g/cm3
+
+mat fuel     -15.61
+94239.03c    -0.9182992
+94240.03c    -0.0434205
+94241.03c    -28.938E-04
+31069.03c    -0.0341 
+
+% --- "Air (Dry, Near Sea Level)" [PNNL-15870, Rev. 1]
+
+mat m4 -1.20500E-03
+ 6012.03c  -1.22564E-04
+ 6013.03c  -1.43645E-06
+ 7014.03c  -7.52324E-01
+ 7015.03c  -2.94416E-03
+ 8016.03c  -2.31153E-01
+ 8017.03c  -9.35803E-05
+ 8018.03c  -5.34540E-04
+18036.03c  -3.88624E-05
+18038.03c  -7.70386E-06
+18040.03c  -1.27804E-02
+
+
+/************************
+ * Geometry definitions *
+ ************************/
+
+% --- Bounding surface for the geometry is sphere
+%     centered at 0.0 0.0 with a critical radius
+%     see: https://serpent.vtt.fi/mediawiki/index.php/Surface_types
+
+surf s1 sph 0.0 0.0 0.0 6.49
+
+% --- Bounding surface for the air around the Pu sphere
+
+surf s2 sph 0.0 0.0 0.0 100.0
+
+% --- Detector cell around the core ---
+
+%cell c0 0 void s1
+
+% --- Cell c1 belongs to the base universe 0, contains the material fuel
+%     and covers everything inside surface s1
+
+cell c1 0 fuel  -s1
+
+% --- Cell c2 belongs to the base universe 0, is defined as an "m4" PNNL standardized air
+
+cell c2 0 m4  -s2
+
+% --- Cell c3: outside the air region, termininating the geometry
+
+cell c3 0 outside s2
+
+% --- Use reflective boundary conditions to make the system infinite
+%     These are applied on the boundary surface of the outside cell
+%     i.e. surface s1
+
+set bc 1
+ 
+/******************
+ * Run parameters *
+ ******************/
+
+% --- Neutron population: 5000 neutrons per cycle, 100 active / 20 inactive cycles
+
+src s1 sm fuel 
+
+set pop 5000 100 20
+
+
+% --- Tally ---
+
+% --- Detector for tallying the flux energy spectra --- 
+
+det EnergyDetector dc c1 
+
+% --- Define the energy grid to be used with the detector ---
+
+ene c1 3 500 1e-11 2e1
+
