@@ -1,0 +1,53 @@
+% --- PWR construct for Q4 of HW5 NE544 
+
+ % --- Research reactor input for Serpent tutorial
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% We'll start from a simple water geometry %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% --- Our reactor model will fit inside a cubic surface with an edge length of 100 cm
+
+surf sCUBE cube 0.0 0.0 0.0 100.0
+
+% --- Cell cIN is filled with the universe "F"
+
+cell cIN  0 fill F -sCUBE
+
+% --- Cell cOUT is defined as an outside cell
+
+cell cOUT 0 outside       sCUBE
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Link additional input files here %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% --- Link the materials file to this input
+
+include "materials"
+
+% --- Link the reactorpool file to this input
+
+include "reactorpool"
+
+% --- Link the fuelrod file to this input
+
+include "PWRfuelrod"
+
+/******************
+ * Run parameters *
+ ******************/
+
+% --- Neutron population: 10000 neutrons per cycle, 100 active / 50 inactive cycles
+
+set pop 10000 100 50
+
+% --- Geometry plots
+
+%  --- XY-plot
+
+plot 3 200 200 0 -1 1 -1 1
+
+% --- XZ-plot
+
+plot 2 100 400 0 -1 1 -50 50

@@ -1,0 +1,27 @@
+/******** Radial boundaries of the reactor ***********/
+
+% --- Outer radius of the support plates and core
+
+surf sCYL1 cylz 0.0 0.0 26
+
+% --- Inner radius of the graphite reflector
+
+surf sCYL2 cylz 0.0 0.0 30
+
+% --- Outer radius of the graphite reflector
+
+surf sCYL3 cylz 0.0 0.0 60
+
+% --- Outer radius of the geometry
+
+surf sCYL4 cylz 0.0 0.0 100
+
+/******** Radial cells of the reactor ****************/
+
+% --- Notice that these cells are part of the universe "reactor"
+
+cell cRadialCore     reactor water      -sCYL1
+cell cRadialWater1   reactor water       sCYL1 -sCYL2
+cell cRadialGraphite reactor graphite    sCYL2 -sCYL3
+cell cRadialWater2   reactor water       sCYL3 -sCYL4
+cell cRadialOutside  reactor outside     sCYL4
