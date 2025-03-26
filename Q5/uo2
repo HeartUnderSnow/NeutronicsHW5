@@ -1,0 +1,10 @@
+% --- In response to Question 5: Materials pt. II
+
+% --- Uranium (enriched to 3%) (density 10.307 g/cm3)
+
+mat fuel     -10.307
+92335.03c     -0.035259896
+92338.03c     -0.846237494
+ 8016.03c     -0.11850261
+
+
