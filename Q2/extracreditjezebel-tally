@@ -68,7 +68,7 @@ set bc 1
  * Run parameters *
  ******************/
 
-% --- Neutron population: 5000 neutrons per cycle, 100 active / 20 inactive cycles
+% --- Neutron population: 50000 neutrons per cycle, 200 active / 50 inactive cycles
 
 src s1 sm fuel 
 
@@ -80,11 +80,11 @@ plot 3 1000 1000 0.0 0.0 0.0 -10 10 -10 10
 
 % --- Tally ---
 
-% --- Detector for tallying the flux energy spectra --- 
+% --- Detector for tallying the neutron leakage divided into < and > 0.025ex energy groups 
 
-det EnergyDetector de c0grid dv 1.0 dc c0 
+det TwoGroupDetector de thermalGrid dc c0 
 
 % --- Define the energy grid to be used with the detector ---
 
-ene c0grid 3 500 0.01 2e1
+ene thermalGrid 2 1 1.e-11 2.5e-8 %1 boundary at 0.025 eV (2.5e-8)
 

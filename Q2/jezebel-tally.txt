@@ -1,4 +1,4 @@
-% --- NE 544 HW 5 Q2 pt 1 - JezebelTally
+% --- NE 544 HW 5 Q1 pt 1 - Pure Pu Jezebel
 
 /************************
  * Material definitions *
@@ -37,26 +37,22 @@ mat m4 -1.20500E-03
 
 surf s1 sph 0.0 0.0 0.0 6.4
 
-% --- Detector cell surface
-
-surf s_det sph 0.0 0.0 0.0 6.5
-
 % --- Bounding surface for the air around the Pu sphere
 
 surf s2 sph 0.0 0.0 0.0 100.0
 
 % --- Detector cell around the core ---
 
-cell c0 0 void s1 -s_det
+%cell c0 0 void -s2
 
 % --- Cell c1 belongs to the base universe 0, contains the material fuel
 %     and covers everything inside surface s1
 
-cell c1 0 fuel  -s1
+cell c1 0 fuel  s1
 
 % --- Cell c2 belongs to the base universe 0, is defined as an "m4" PNNL standardized air
 
-cell c2 0 m4  s_det -s2
+cell c2 0 m4  -s2
 
 % --- Cell c3: outside the air region, termininating the geometry
 
@@ -72,19 +68,18 @@ set bc 1
 
 src s1 sm fuel 
 
-set pop 50000 200 50
+set pop 5000 100 20
 
-plot 3 1000 1000 0.0 0.0 0.0 -10 10 -10 10   
+plot 3 500 500 0.0 0.0 -20 20 -20 -20 
 
-%plot 2 1000 1000 0.0 0.0 0.0 -10 10 -10 10   
 
 % --- Tally ---
 
 % --- Detector for tallying the flux energy spectra --- 
 
-det EnergyDetector de c0grid dv 1.0 dc c0 
+%det EnergyDetector dc c0  
 
 % --- Define the energy grid to be used with the detector ---
 
-ene c0grid 3 500 0.01 2e1
+%ene c0 3 500 1e-11 2e1
 
